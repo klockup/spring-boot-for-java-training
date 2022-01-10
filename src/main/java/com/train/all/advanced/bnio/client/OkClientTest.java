@@ -17,10 +17,8 @@ public class OkClientTest {
                 .url("http://www.baidu.com/s?wd=java")
                 .get()
                 .build();
-
-        Call call=client.newCall(request);
         try {
-            Response response=call.execute();
+            Response response=client.newCall(request).execute();
             log.info(response.body().string());
         } catch (IOException e) {
             e.printStackTrace();

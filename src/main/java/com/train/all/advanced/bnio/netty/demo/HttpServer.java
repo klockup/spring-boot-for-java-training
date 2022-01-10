@@ -40,18 +40,27 @@ public class HttpServer {
 
         try {
             ServerBootstrap b = new ServerBootstrap();
+            //未完成的socket链接
             b.option(ChannelOption.SO_BACKLOG, 128)
+                    //tcp字节拼凑
                     .option(ChannelOption.TCP_NODELAY, true)
+                    //tcp底层是长连接
                     .option(ChannelOption.SO_KEEPALIVE, true)
                     .option(ChannelOption.SO_REUSEADDR, true)
+                    //缓冲区
                     .option(ChannelOption.SO_RCVBUF, 32 * 1024)
                     .option(ChannelOption.SO_SNDBUF, 32 * 1024)
                     .option(EpollChannelOption.SO_REUSEPORT, true)
+                    //childOption 对衍生出的worker起作用
                     .childOption(ChannelOption.SO_KEEPALIVE, true);
+                    //指定了内存池，反复用一块内存
                     //.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT);
 
-            b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-                    .handler(new LoggingHandler(LogLevel.INFO)).childHandler(new HttpInitializer(sslCtx));
+            b.group(bossGroup, workerGroup)
+                    //表明都用nio来操作
+                    .channel(NioServerSocketChannel.class)
+                    .handler(new LoggingHandler(LogLevel.INFO))
+                    .childHandler(new HttpInitializer(sslCtx));
 
             Channel ch = b.bind(port).sync().channel();
             logger.info("开启netty http服务器，监听地址和端口为 " + (ssl ? "https" : "http") + "://127.0.0.1:" + port + '/');
