@@ -3,6 +3,8 @@ package com.train.all.advanced.bnio.gateway;
 import com.train.all.advanced.bnio.gateway.inbound.HttpInBoundServer;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Arrays;
+
 /**
  *  一个简单的网关
  * @author: kennys.chai
@@ -25,7 +27,7 @@ public class NettyServerApplication {
         int port = Integer.parseInt(proxyPort);
 
         log.info("{} {}{}",GATEWAY_NAME , GATEWAY_VERSION ," starting...");
-        HttpInBoundServer server=new HttpInBoundServer(port,proxyServer);
+        HttpInBoundServer server=new HttpInBoundServer(port, Arrays.asList(proxyServer));
         log.info("{} {} {}{}{}",GATEWAY_NAME,GATEWAY_VERSION,"started at http://localhost:",proxyPort,"for server:");
 
         try {

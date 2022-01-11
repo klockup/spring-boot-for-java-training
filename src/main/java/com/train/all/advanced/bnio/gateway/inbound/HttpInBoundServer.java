@@ -13,15 +13,17 @@ import io.netty.handler.logging.LoggingHandler;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+
 @Data
 @Slf4j
 public class HttpInBoundServer {
     private int port;
-    private String proxyServer;
+    private List<String> proxyServerList;
 
-    public HttpInBoundServer(int port, String proxyServer){
+    public HttpInBoundServer(int port, List<String> proxyServerList){
         this.port=port;
-        this.proxyServer=proxyServer;
+        this.proxyServerList = proxyServerList;
     }
 
     public void run() throws Exception{
@@ -45,7 +47,7 @@ public class HttpInBoundServer {
             serverBootstrap.group(workerGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
                     .handler(new LoggingHandler(LogLevel.DEBUG))
-                    .childHandler(new LoggingHandler(LogLevel.DEBUG));
+                    .childHandler(new HttpInBoundInitializer(this.proxyServerList));
 
             //netty 绑定端口
             Channel ch=serverBootstrap.bind(port).sync().channel();
