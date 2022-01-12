@@ -1,4 +1,4 @@
-package com.train.all.advanced.cconcurrent;
+package com.train.all.advanced.cconcurrent.base;
 
 public class ThreadCount {
     public static void main(String[] args) throws InterruptedException {

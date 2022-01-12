@@ -12,6 +12,7 @@ public class Thread1 implements Runnable {
         }
     }
 
+
     public static void main(String[] args) {
         Thread1 t1 = new Thread1();
         Thread ta = new Thread(t1, "A");

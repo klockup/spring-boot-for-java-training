@@ -1,4 +1,4 @@
-package com.train.all.advanced.cconcurrent;
+package com.train.all.advanced.cconcurrent.base;
 
 /**
  *  一个简单的线程A

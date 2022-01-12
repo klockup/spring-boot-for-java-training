@@ -1,4 +1,4 @@
-package com.train.all.advanced.cconcurrent;
+package com.train.all.advanced.cconcurrent.base;
 
 /**
  *  一个简单的线程B  并且输出线程的一些信息
