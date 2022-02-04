@@ -9,8 +9,10 @@ public class Counter {
     
     private int sum = 0;
 
+    private static Object object=new Object();
+
     public  void incr() {
-        synchronized(this) {
+        synchronized(new Object()) {
             sum = sum + 1;
         }
     }
@@ -26,7 +28,7 @@ public class Counter {
     }
     
     public static void main(String[] args) throws InterruptedException {
-        int loop = 10_0000;
+        int loop = 100000;
         
         // test single thread
         Counter counter = new Counter();
